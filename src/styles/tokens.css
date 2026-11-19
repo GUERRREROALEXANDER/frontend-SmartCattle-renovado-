@@ -1,0 +1,312 @@
+:root {
+  color-scheme: light;
+
+  /* Color - surfaces (light / beige cálido, predeterminado) */
+  --color-ground: #FAF6EE;
+  --color-surface: #F1E4C9;
+  --color-surface-raised: #F7EFDC;
+  --color-well: #E9DAB9;
+  --color-rule: #D9C9A3;
+  --color-rule-strong: #1F4538;
+
+  /* Color - ink */
+  --color-ink: #15302A;
+  --color-ink-muted: #3F5C52;
+  --color-ink-subtle: #6B8577;
+
+  /* Color - brand (verde oscuro) */
+  --color-brand: #1F4538;
+  --color-brand-strong: #163C2E;
+  --color-brand-hover: #2A5C46;
+  --color-on-brand: #FAF6EE;
+  /* Text on solid alert tags and banners. */
+  --color-on-solid: #FFFFFF;
+  --color-on-brand-muted: #E9DAB9;
+
+  /* Color - pastel accents (legacy earth tokens now carry the sky role) */
+  --color-mint: #DCEEE3;
+  --color-mint-ink: #15463A;
+  --color-sky: #DCEAF2;
+  --color-sky-ink: #1B3F4A;
+  --color-butter: #FBF0CE;
+  --color-butter-ink: #6B5410;
+  --color-peach: #FBE3D8;
+  --color-peach-ink: #7A3420;
+  --color-lilac: #E7E3F7;
+  --color-lilac-ink: #3A2E63;
+  --color-earth: #2E7093;
+  --color-earth-surface: #DCEAF2;
+  --color-earth-ink: #1B3F4A;
+  --color-on-brand-surface: rgb(21 48 42 / 0.10);
+  --color-backdrop: rgb(10 20 17 / 0.4);
+  --color-sage: #3E6B54;
+
+  /* Color - states */
+  --color-safe: #128A64;
+  /* Text on tinted state surfaces needs a darker ink to reach 4.5:1. */
+  --color-safe-ink: #0E6B4D;
+  --color-inactive-ink: #5C6B62;
+  --color-safe-surface: rgb(18 138 100 / 0.14);
+  --color-warning: #B9800D;
+  --color-warning-ink: #8A5F10;
+  --color-warning-surface: rgb(185 128 13 / 0.14);
+  --color-critical: #D33F3F;
+  --color-critical-ink: #A62F2F;
+  --color-critical-surface: rgb(211 63 63 / 0.14);
+  --color-alarm: #D33F3F;
+  --color-alarm-hover: #B93434;
+  --color-alarm-ink: #A62F2F;
+  --color-alarm-surface: rgb(211 63 63 / 0.14);
+  --color-info: #246E90;
+  --color-info-ink: #1D5E78;
+  --color-info-surface: rgb(36 110 144 / 0.14);
+  --color-inactive: #85988C;
+  --color-inactive-surface: #E9DAB9;
+
+  /* Color - camera stage (kept dark in both themes: the live video stays on a dark stage) */
+  --color-stage: #031516;
+  --color-stage-raised: #0B2B26;
+  --color-stage-ink: #DAF1DE;
+  --color-stage-ink-muted: #A9CDB4;
+  --color-overlay-cattle: #34D399;
+  --color-overlay-person: #FACC15;
+  --color-overlay-lindero: #FFFFFF;
+  --color-overlay-outside: #FF6B6B;
+
+  /* Focus */
+  --focus-ring: 0 0 0 2px var(--color-surface-raised), 0 0 0 4px var(--color-brand);
+
+  /* Hatch - outside-zone / critical pattern */
+  --hatch-critical: repeating-linear-gradient(135deg, var(--color-critical) 0 2px, transparent 2px 7px);
+  --hatch-warning: repeating-linear-gradient(135deg, var(--color-warning) 0 2px, transparent 2px 7px);
+
+  /* Type - family and stretch */
+  --font-sans: 'Archivo Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --stretch-wide: 115%;
+  --stretch-normal: 100%;
+  --stretch-condensed: 80%;
+
+  /* Type - sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.125rem;
+  --text-lg: 1.375rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.25rem;
+  --text-3xl: 3rem;
+
+  /* Type - line heights */
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.5;
+
+  /* Type - weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-display: 650;
+  --weight-bold: 700;
+
+  /* Type - tracking */
+  --tracking-tight: -0.02em;
+  --tracking-label: 0.04em;
+
+  /* Spacing - 4px base */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+
+  /* Elevation */
+  --shadow-raised: 0 2px 4px rgb(15 40 32 / 0.12), 0 12px 28px rgb(15 40 32 / 0.14);
+  --shadow-overlay: 0 20px 50px rgb(15 40 32 / 0.22), 0 8px 24px rgb(15 40 32 / 0.16);
+  --shadow-glow-brand: 0 0 0 4px rgb(31 69 56 / 0.14), 0 8px 24px rgb(31 69 56 / 0.12);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+  --duration-slow: 600ms;
+
+  /* Layout */
+  --rail-width: 232px;
+  --topbar-height: 56px;
+  --active-dot-size: 6px;
+  --badge-padding-block: 2px;
+  --tabbar-height: 64px;
+  --touch-min: 44px;
+  --content-max: 1440px;
+
+  /* Base UI components */
+  --color-hover: rgb(31 69 56 / 0.08);
+  --control-sm: 44px;
+  --pill-padding-inline: 10px;
+  --duration-spin: 700ms;
+  --duration-shimmer: 1.4s;
+  --notice-content-min: 16rem;
+  --state-description-max: 42ch;
+
+  /* Z-index */
+  --z-rail: 20;
+  --z-tabbar: 30;
+  --z-banner: 40;
+  --z-overlay: 50;
+  --z-toast: 60;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* Color - surfaces */
+  --color-ground: #051F20;
+  --color-surface: #0B2B26;
+  --color-surface-raised: #0F332D;
+  --color-well: #163832;
+  --color-rule: #235347;
+  --color-rule-strong: #4F8A77;
+
+  /* Color - ink */
+  --color-ink: #DAF1DE;
+  --color-ink-muted: #B4D3BD;
+  --color-ink-subtle: #8EB69B;
+
+  /* Color - brand */
+  --color-brand: #8EB69B;
+  --color-brand-strong: #A9CDB4;
+  --color-brand-hover: #C2E0CA;
+  --color-on-brand: #051F20;
+  --color-on-solid: #FFFFFF;
+  --color-on-brand-muted: #163832;
+
+  /* Color - pastel accents (legacy earth tokens now carry the sky role) */
+  --color-mint: #1B4A3F;
+  --color-mint-ink: #B7E4C7;
+  --color-sky: #1B3F4A;
+  --color-sky-ink: #A5D8EE;
+  --color-butter: #3D3A1E;
+  --color-butter-ink: #F3DC8C;
+  --color-peach: #44291F;
+  --color-peach-ink: #F6B99F;
+  --color-lilac: #2E2A4A;
+  --color-lilac-ink: #C9BDF5;
+  --color-earth: #6CB8D9;
+  --color-earth-surface: #1B3F4A;
+  --color-earth-ink: #A5D8EE;
+  --color-on-brand-surface: rgb(218 241 222 / 0.22);
+  --color-backdrop: rgb(2 12 12 / 0.66);
+  --color-sage: #8EB69B;
+
+  /* Color - states */
+  --color-safe: #34D399;
+  --color-safe-ink: #6EE7B7;
+  --color-inactive-ink: #B4D3BD;
+  --color-safe-surface: rgb(52 211 153 / 0.14);
+  --color-warning: #F5B544;
+  --color-warning-ink: #FFD58A;
+  --color-warning-surface: rgb(245 181 68 / 0.14);
+  --color-critical: #FF6B6B;
+  --color-critical-ink: #FFA8A8;
+  --color-critical-surface: rgb(255 107 107 / 0.14);
+  --color-alarm: #FF6B6B;
+  --color-alarm-hover: #FF8787;
+  --color-alarm-ink: #FFA8A8;
+  --color-alarm-surface: rgb(255 107 107 / 0.14);
+  --color-info: #6CB8D9;
+  --color-info-ink: #A5D8EE;
+  --color-info-surface: rgb(108 184 217 / 0.14);
+  --color-inactive: #7E9A88;
+  --color-inactive-surface: #163832;
+
+  /* Elevation */
+  --shadow-raised: 0 2px 4px rgb(0 0 0 / 0.25), 0 12px 28px rgb(0 0 0 / 0.28);
+  --shadow-overlay: 0 20px 50px rgb(0 0 0 / 0.5), 0 8px 24px rgb(0 0 0 / 0.3);
+  --shadow-glow-brand: 0 0 0 4px rgb(142 182 155 / 0.18), 0 8px 24px rgb(142 182 155 / 0.16);
+
+  /* Base UI components */
+  --color-hover: rgb(142 182 155 / 0.10);
+}
+
+:root {
+  /* Camera stage overlays */
+  --color-stage-tag: rgb(3 21 22 / 0.8);
+  --color-stage-tag-outside: rgb(170 40 48 / 0.94);
+  --color-stage-scrim: rgb(3 21 22 / 0.66);
+
+  /* Authentication scene */
+  --color-auth-zone: rgb(142 182 155 / 0.12);
+  --color-auth-tag: rgb(3 21 22 / 0.8);
+  --color-auth-outside-tag: rgb(170 40 48 / 0.94);
+  --color-auth-pill: rgb(3 21 22 / 0.62);
+  --color-auth-shade: rgb(3 21 22 / 0.7);
+  --auth-scene-min-height: 220px;
+  --duration-pasture-drift: 28s;
+  --duration-lindero-reveal: 900ms;
+  --duration-detection-reveal: 320ms;
+  --duration-outside-pulse: 1.2s;
+}
+
+:root {
+  /* Glass (Dashboard V15) - page backdrop, light / crema */
+  --glass-backdrop:
+    radial-gradient(60rem 40rem at 8% -10%, rgb(31 69 56 / 0.08), transparent 60%),
+    radial-gradient(50rem 36rem at 100% 0%, rgb(201 169 112 / 0.16), transparent 60%),
+    radial-gradient(44rem 34rem at 70% 110%, rgb(31 69 56 / 0.06), transparent 60%),
+    linear-gradient(180deg, #FAF6EE 0%, #F3ECDA 100%);
+
+  /* Glass - panels */
+  --glass-fill: rgb(250 246 238 / 0.72);
+  --glass-fill-strong: rgb(250 246 238 / 0.9);
+  --glass-fill-subtle: rgb(241 228 201 / 0.55);
+  --glass-fill-brand: rgb(31 69 56 / 0.10);
+  --glass-border: rgb(31 69 56 / 0.22);
+  --glass-border-subtle: rgb(31 69 56 / 0.12);
+  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.6);
+  --glass-blur: 18px;
+  --glass-saturate: 160%;
+  --glass-shadow: 0 1px 2px rgb(15 40 32 / 0.08), 0 18px 40px -12px rgb(15 40 32 / 0.18);
+  --glass-shadow-hover: 0 2px 4px rgb(15 40 32 / 0.10), 0 26px 56px -14px rgb(15 40 32 / 0.24);
+
+  /* Glass - dark (over photos and the camera stage; unchanged in both themes) */
+  --glass-dark-fill: rgb(5 31 32 / 0.58);
+  --glass-dark-border: rgb(142 182 155 / 0.24);
+
+  /* Glass - accents (verde oscuro) */
+  --gradient-brand: linear-gradient(135deg, #2A5C46 0%, #1F4538 55%, #163C2E 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgb(31 69 56 / 0.16), rgb(31 69 56 / 0.08));
+}
+
+[data-theme='dark'] {
+  --glass-backdrop:
+    radial-gradient(60rem 40rem at 8% -10%, rgb(35 83 71 / 0.55), transparent 60%),
+    radial-gradient(50rem 36rem at 100% 0%, rgb(22 56 50 / 0.7), transparent 60%),
+    radial-gradient(44rem 34rem at 70% 110%, rgb(142 182 155 / 0.10), transparent 60%),
+    linear-gradient(180deg, #051F20 0%, #041A1B 100%);
+
+  --glass-fill: rgb(11 43 38 / 0.66);
+  --glass-fill-strong: rgb(11 43 38 / 0.86);
+  --glass-fill-subtle: rgb(22 56 50 / 0.45);
+  --glass-fill-brand: rgb(142 182 155 / 0.12);
+  --glass-border: rgb(35 83 71 / 0.9);
+  --glass-border-subtle: rgb(142 182 155 / 0.16);
+  --glass-highlight: inset 0 1px 0 rgb(218 241 222 / 0.07);
+  --glass-shadow: 0 1px 2px rgb(0 0 0 / 0.2), 0 18px 40px -12px rgb(0 0 0 / 0.45);
+  --glass-shadow-hover: 0 2px 4px rgb(0 0 0 / 0.25), 0 26px 56px -14px rgb(0 0 0 / 0.6);
+
+  --gradient-brand: linear-gradient(135deg, #B9DAC2 0%, #8EB69B 55%, #6FA084 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgb(35 83 71 / 0.9), rgb(22 56 50 / 0.8));
+}

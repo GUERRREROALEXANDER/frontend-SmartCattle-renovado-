@@ -1,0 +1,174 @@
+export interface ApiHealth { status: string }
+export interface ApiStatus {
+  status: string
+  version: string
+  ai_service: { configured: boolean }
+  storage: string
+  /** Absent on a backend that predates the field, which reads as unknown. */
+  auth_enabled?: boolean
+}
+/**
+ * GET /api/animals. The ear tag is the identity; there is no numeric id,
+ * because the tag is what is physically on the animal and what the staff use.
+ */
+export interface ApiAnimal {
+  tag: string
+  name: string | null
+  status: 'active' | 'inactive' | 'lost'
+  camera_id: string | null
+  last_detection: string | null // ISO timestamp in UTC.
+  created_at: string
+  updated_at: string
+}
+export interface ApiAnimalsResponse { items: ApiAnimal[]; total: number }
+export type ApiEventLevel = 'low' | 'medium' | 'high'
+export interface ApiEvent {
+  id: string
+  event_type: 'cattle_down' | 'cattle_out_of_zone'
+  camera_id: string
+  detected_object: string
+  confidence: number // 0..1
+  timestamp: string // ISO timestamp with timezone.
+  received_at: string // ISO timestamp in UTC.
+  /** Severity, derived by the backend from the confidence. */
+  level: ApiEventLevel
+}
+// Items are ordered newest first.
+export interface ApiEventsResponse { items: ApiEvent[]; total: number }
+export interface ApiErrorBody { detail: string | unknown }
+export interface ApiCamera {
+  id: string
+  status: 'online' | 'offline' | 'error'
+  last_online_at: string | null // ISO timestamp in UTC.
+  frame_width: number | null
+  frame_height: number | null
+  stream_url: string | null // Public base URL of the AI service streaming this camera.
+  last_error: string | null
+  fps: number | null
+  display_name?: string | null // The name its owner gave it.
+}
+export interface ApiCamerasResponse { items: ApiCamera[]; total: number }
+export type ApiUserRole = 'owner' | 'worker'
+export interface ApiUser { id: number; email: string; full_name: string; role: ApiUserRole; is_active: boolean }
+
+export type ApiAlertStatus = 'open' | 'acknowledged' | 'resolved'
+export interface ApiAlert {
+  id: string
+  event_id: string | null
+  camera_id: string | null
+  alert_type: string
+  severity: ApiEventLevel
+  status: ApiAlertStatus
+  message: string
+  created_at: string
+  acknowledged_at: string | null
+  resolved_at: string | null
+}
+export interface ApiAlertsResponse { items: ApiAlert[]; total: number }
+
+export type ApiSystemStatus = 'operational' | 'degraded' | 'no_data'
+/** GET /api/metrics/live */
+export interface ApiLiveMetrics {
+  cameras_total: number
+  cameras_online: number
+  stale_cameras: number
+  cattle_inside: number
+  cattle_outside: number
+  cattle_total: number
+  open_alerts: number
+  events_last_hour: number
+  system_status: ApiSystemStatus
+  generated_at: string
+}
+
+export interface ApiFarm { id: number; name: string; location: string | null; area_hectares: number | null; lot_count: number }
+export interface ApiFarmsResponse { items: ApiFarm[]; total: number }
+export type ApiLotKind = 'paddock' | 'stable' | 'pen' | 'pasture'
+export interface ApiLot {
+  id: number
+  farm_id: number
+  name: string
+  kind: ApiLotKind
+  area_square_meters: number | null
+  length_meters: number | null
+  width_meters: number | null
+  capacity: number | null
+  camera_id: string | null
+  active: boolean
+}
+export interface ApiLotsResponse { items: ApiLot[]; total: number }
+
+export interface ApiOccupancySample { camera_id: string; minute: string; cattle_inside: number; cattle_outside: number }
+export interface ApiOccupancyHistory { items: ApiOccupancySample[]; total: number }
+export interface ApiAlertDay { day: string; total: number; low: number; medium: number; high: number; open: number; acknowledged: number; resolved: number }
+export interface ApiActivity {
+  observed_minutes: number; lying_minutes: number; standing_minutes: number; walking_minutes: number
+  peak_cattle: number; peak_people: number; minutes_with_people: number; lying_share: number | null
+}
+export interface ApiDailyReport {
+  day: string; complete: boolean; herd: ApiActivity
+  health: { camera_id: string; kind: 'prolonged_lying' | 'little_lying'; lying_share: number }[]
+  alerts: { total: number; low: number; medium: number; high: number; open: number; acknowledged: number; resolved: number }
+  events_total: number
+}
+export interface ApiNotificationSettings {
+  enabled: boolean; whatsapp_phone: string | null; telegram_chat_id: string | null; min_severity: ApiEventLevel
+  channels_available: ('whatsapp' | 'telegram')[]
+}
+export interface ApiNotificationTest { results: { channel: 'whatsapp' | 'telegram'; status: 'pending' | 'sent' | 'failed'; detail: string | null }[] }
+export interface ApiAlertReport { days: ApiAlertDay[]; total: number; avg_minutes_to_acknowledge: number | null; avg_minutes_to_resolve: number | null }
+export interface ApiEventDay { day: string; camera_id: string; total: number; low: number; medium: number; high: number }
+export interface ApiEventReport { days: ApiEventDay[]; total: number }
+
+/** What the AI estimates a cow is doing; absent when it cannot tell. */
+export type ApiPosture = 'standing' | 'walking' | 'lying'
+
+/** One box pushed by the backend on /ws/live; `bbox` is [x1, y1, x2, y2] from 0 to 1. */
+export interface ApiStreamDetection {
+  track_id: number | null
+  label: string
+  confidence: number
+  bbox: [x1: number, y1: number, x2: number, y2: number]
+  inside_zone: boolean
+  posture?: ApiPosture | null
+}
+export interface ApiOccupancy { camera_id: string; cattle_inside: number; cattle_outside: number; observed_at: string }
+
+/** GET /status on the local AI service (live.py). */
+export interface ApiLiveDetection {
+  class: string
+  confidence: number // 0..1
+  bbox: [x1: number, y1: number, x2: number, y2: number] // Pixels.
+  inside_zone: boolean | null
+}
+export interface ApiLiveStatus {
+  camera_id: string
+  status: string
+  width: number | null
+  height: number | null
+  captured_at: string | null
+  detections: ApiLiveDetection[]
+}
+
+/** A polygon vertex. Normalised from 0 to 1, not pixels. */
+export interface ApiZonePoint { x: number; y: number }
+
+/**
+ * GET /api/zones. Coordinates are normalised from 0 to 1 rather than stored
+ * in pixels: a zone in pixels is tied to the resolution it was drawn at, so
+ * swapping the camera moves the zone without anyone touching it.
+ */
+export interface ApiZone {
+  id: number
+  camera_id: string
+  name: string
+  x_min: number
+  y_min: number
+  x_max: number
+  y_max: number
+  /** Optional polygon. When present it defines the zone; the rectangle is its bounding box. */
+  outline: ApiZonePoint[] | null
+  active: boolean
+  created_at: string
+}
+export interface ApiZonesResponse { items: ApiZone[]; total: number }
