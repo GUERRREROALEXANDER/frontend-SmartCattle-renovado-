@@ -1,0 +1,130 @@
+.marker {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  font-family: var(--font-sans);
+  user-select: none;
+  /* The label layer lets every pointer through to the canvas; the markers are the exception. */
+  pointer-events: auto;
+}
+
+.pin {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--glass-dark-border);
+  border-radius: var(--radius-full);
+  background: var(--glass-dark-fill);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-raised);
+  color: var(--color-ink);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-out), border-color var(--duration-fast), background-color var(--duration-fast);
+}
+.pin strong {
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-brand);
+  color: var(--color-on-brand);
+  font-weight: var(--weight-bold);
+}
+.pin::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 1px;
+  height: 18px;
+  background: linear-gradient(var(--color-brand), transparent);
+  pointer-events: none;
+}
+.marker[data-breached='true'] .pin { border-color: var(--color-alarm); color: var(--color-alarm-ink); }
+.marker[data-breached='true'] .pin strong { background: var(--color-alarm); }
+.marker[data-open='true'] .pin { border-color: var(--color-brand); }
+
+@media (hover: hover) {
+  .pin:hover { transform: translateY(-2px); border-color: var(--color-brand); }
+}
+
+.card {
+  position: absolute;
+  bottom: calc(100% + var(--space-2));
+  left: 50%;
+  width: 232px;
+  padding: var(--space-3);
+  transform: translateX(-50%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--glass-fill-strong);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--shadow-overlay);
+  color: var(--color-ink);
+  animation: rise var(--duration-base) var(--ease-out);
+}
+.cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+.close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-well);
+  color: var(--color-ink-muted);
+  cursor: pointer;
+}
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-2); margin: 0; }
+.stats div { padding: var(--space-2); border-radius: var(--radius-md); background: var(--color-well); text-align: center; }
+.stats dt { color: var(--color-ink-subtle); font-size: var(--text-xs); }
+.stats dd { margin: 0; font-size: var(--text-lg); font-weight: var(--weight-bold); line-height: var(--leading-tight); }
+.stats dd[data-tone='safe'] { color: var(--color-safe); }
+.stats dd[data-tone='alert'] { color: var(--color-alarm); }
+.stats dd[data-tone='warning'] { color: var(--color-warning); }
+.note { color: var(--color-ink-muted); font-size: var(--text-xs); }
+.camera {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  color: var(--color-ink-muted);
+  font-size: var(--text-xs);
+}
+.camera[data-status='online'] { color: var(--color-safe-ink); }
+.camera[data-status='error'] { color: var(--color-alarm-ink); }
+.camera[data-status='connecting'] { color: var(--color-warning-ink); }
+.focus {
+  width: 100%;
+  min-height: var(--touch-min);
+  margin-top: var(--space-3);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-md);
+  background: var(--color-rule);
+  color: var(--color-ink);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateX(-50%) translateY(6px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card { animation: none; }
+  .pin { transition: none; }
+}
