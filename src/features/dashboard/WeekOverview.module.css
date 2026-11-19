@@ -1,0 +1,111 @@
+/* Three cards under the live numbers: the days as bars, the kinds as a ring, the cameras as a list. */
+.section {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+}
+.section > * { display: grid; min-width: 0; align-content: start; gap: var(--space-3); padding: var(--space-5); }
+
+.head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--space-2) var(--space-4); }
+.title { font-size: var(--text-md); font-weight: var(--weight-semibold); letter-spacing: var(--tracking-tight); }
+.sub { color: var(--color-ink-subtle); font-size: var(--text-xs); }
+
+.tabs { display: inline-flex; padding: 3px; border: 1px solid var(--glass-border); border-radius: var(--radius-full); background: var(--glass-fill-subtle); }
+.tab {
+  min-height: 2.5rem;
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--color-ink-muted);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+.tab[aria-pressed='true'] { background: var(--color-brand); color: var(--color-on-brand); }
+.tab:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+.figure { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--space-2) var(--space-5); }
+.total {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  color: var(--color-ink);
+  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+}
+.unit { color: var(--color-ink-subtle); font-size: var(--text-sm); font-weight: var(--weight-medium); letter-spacing: 0; }
+.legend { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); margin: 0; padding: 0; list-style: none; color: var(--color-ink-muted); font-size: var(--text-xs); }
+.legend li { display: inline-flex; align-items: center; gap: var(--space-2); }
+.legend li > span { width: 0.625rem; height: 0.625rem; border-radius: var(--radius-sm); }
+
+.chart { position: relative; width: 100%; height: 15rem; }
+/* Said over the empty grid, so the card keeps its shape on a farm's first day. */
+.quiet {
+  position: absolute;
+  inset: 0 0 1.5rem 2rem;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  color: var(--color-ink-subtle);
+  font-size: var(--text-sm);
+  text-align: center;
+  pointer-events: none;
+}
+
+.more { margin-top: auto; font-size: var(--text-sm); font-weight: var(--weight-semibold); }
+.more a { display: inline-flex; align-items: center; gap: var(--space-1); min-height: 2rem; color: var(--color-brand-strong); border-radius: var(--radius-sm); }
+.more a:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.more svg { transition: transform var(--duration-fast) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .more a:hover svg { transform: translateX(3px); } }
+
+/* The ring with nothing in it yet. */
+.ring {
+  display: grid;
+  width: min(11rem, 70%);
+  aspect-ratio: 1;
+  margin: var(--space-3) auto;
+  place-items: center;
+  border: 1.15rem solid var(--color-rule);
+  border-radius: 50%;
+}
+.ring span { display: grid; color: var(--color-ink-subtle); font-size: var(--text-xs); text-align: center; }
+.ring strong { color: var(--color-ink); font-size: var(--text-xl); font-variant-numeric: tabular-nums; line-height: var(--leading-tight); }
+
+.list { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+.row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 3.25rem;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: inherit;
+  transition: background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+.row:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+@media (hover: hover) and (pointer: fine) { .row:hover { border-color: var(--glass-border); background: var(--color-hover); } }
+.rowIcon { display: grid; width: 2.25rem; height: 2.25rem; place-items: center; border: 1px solid var(--glass-border); border-radius: var(--radius-md); color: var(--color-safe-ink); background: var(--gradient-brand-soft); }
+.rowName { display: grid; min-width: 0; }
+.rowName strong { overflow: hidden; font-size: var(--text-sm); text-overflow: ellipsis; white-space: nowrap; }
+.rowName span { overflow: hidden; color: var(--color-ink-subtle); font-size: var(--text-xs); text-overflow: ellipsis; white-space: nowrap; }
+.none { display: grid; justify-items: center; gap: var(--space-2); padding: var(--space-5) var(--space-3); color: var(--color-ink-subtle); font-size: var(--text-sm); text-align: center; }
+
+@media (min-width: 760px) {
+  .section { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
+  .trend { grid-column: 1 / -1; }
+}
+@media (min-width: 1200px) {
+  .section { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-6); }
+  .trend { grid-column: auto; }
+  .chart { height: 16.5rem; }
+}
+@media (prefers-reduced-motion: reduce) { .tab, .row, .more svg { transition: none; } }
